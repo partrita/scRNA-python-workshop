@@ -1,76 +1,76 @@
-# Analysis of single cell RNA-seq data (Python)
+# 단일 세포 RNA-seq 데이터 분석 (Python)
 
-# [View the course content here](https://chanzuckerberg.github.io/scRNA-python-workshop/)
+# [여기에서 강의 내용을 확인하세요](https://chanzuckerberg.github.io/scRNA-python-workshop/)
 
-## Course goals
+## 강의 목표
 
-Today it is possible to obtain genome-wide transcriptome data from single cells using high-throughput sequencing (scRNA-seq). The goal of this one-day workshop is to help scientists from all backgrounds (computational or otherwise) feel empowered to explore their scRNA-seq data. Specifically, we hope students leave with the ability to:
+오늘날에는 고처리량 시퀀싱(scRNA-seq)을 사용하여 단일 세포에서 게놈 전체의 전사체 데이터를 얻을 수 있습니다. 이 하루 워크숍의 목표는 모든 배경(전산 또는 기타)의 과학자들이 자신의 scRNA-seq 데이터를 탐색하는 데 자신감을 갖도록 돕는 것입니다. 구체적으로, 우리는 학생들이 다음을 할 수 있는 능력을 갖추고 떠나기를 바랍니다:
 
-- Understand a general workflow for dealing with scRNA-seq data
-- Anticipate and avoid some of the most common pitfalls in scRNA-seq analysis
-- Build intuition around the tradeoffs inherent in analytical choices
-- Feel comfortable and confident working with current Python-based tools for single cell analysis
-- Have better conversations with their collaborators
-- Know where to find additional information and assistance
+- scRNA-seq 데이터를 다루는 일반적인 워크플로우 이해
+- scRNA-seq 분석에서 가장 일반적인 함정 일부를 예측하고 피하기
+- 분석적 선택에 내재된 절충안에 대한 직관 구축
+- 단일 세포 분석을 위한 최신 Python 기반 도구를 편안하고 자신있게 사용
+- 공동 작업자와 더 나은 대화 나누기
+- 추가 정보 및 지원을 찾을 수 있는 곳 알기
 
-### Topics covered
+### 다루는 주제
 
-We'll cover the basics of:
+다음의 기본 사항을 다룰 것입니다:
 
-- Quality control
-- Normalization
-- Dimensionality reduction
-- Clustering
-- Differential expression
-- Exploratory analysis
+- 품질 관리
+- 정규화
+- 차원 축소
+- 클러스터링
+- 차등 발현
+- 탐색적 분석
 
-## Course non-goals
+## 강의의 비목표
 
-We have tried to incorporate current best practices and build intuition around methodological choices throughout this workshop. However, single cell data is complex and the field is evolving rapidly. There are also many aspects of this analysis where the field has not yet reached consensus on best practices. A one-day course simply cannot cover all of the relevant considerations and tools. Here, we have prioritized topics and tools that build foundational intuition, and are available in Python with reasonable runtime. Given the one-day timetable, we opt to start from the expression matrix and do not cover processing raw data. While not a comprehensive guide, we hope this serves as a stepping stone to making single cell analysis approachable.
+우리는 이 워크숍 전반에 걸쳐 현재의 모범 사례를 통합하고 방법론적 선택에 대한 직관을 구축하려고 노력했습니다. 그러나 단일 세포 데이터는 복잡하고 이 분야는 빠르게 발전하고 있습니다. 또한 이 분석의 많은 측면에서 이 분야는 아직 모범 사례에 대한 합의에 도달하지 못했습니다. 하루 과정으로는 모든 관련 고려 사항과 도구를 다룰 수 없습니다. 여기서는 기초적인 직관을 구축하고 합리적인 런타임으로 Python에서 사용할 수 있는 주제와 도구를 우선적으로 다루었습니다. 하루라는 시간표를 감안할 때, 우리는 발현 행렬에서 시작하고 원시 데이터 처리는 다루지 않기로 결정했습니다. 포괄적인 가이드는 아니지만, 이것이 단일 세포 분석에 접근하는 디딤돌이 되기를 바랍니다.
 
-## Prerequisites & resources
+## 전제 조건 및 자료
 
-The workshop consists of explanatory discussions interspersed with hands-on exercises. **We strongly encourage you to bring a laptop with all required packages installed in order to fully participate.** Please follow the instructions [here](https://chanzuckerberg.github.io/scRNA-python-workshop/intro/setup.html)
+워크숍은 설명적인 토론과 실습이 번갈아 가며 진행됩니다. **완전히 참여하려면 모든 필수 패키지가 설치된 노트북을 가져오시는 것을 강력히 권장합니다.** [여기](https://chanzuckerberg.github.io/scRNA-python-workshop/intro/setup.html)의 지침을 따르십시오.
 
-The course is intended for those who have basic familiarity with Python (e.g., at the level covered in a software carpentry workshop). Basic familiarity with the Jupyter notebooks and the command line is helpful but not required.
+이 과정은 Python에 대한 기본적인 지식이 있는 분들을 대상으로 합니다(예: 소프트웨어 카펜트리 워크숍에서 다루는 수준). Jupyter 노트북과 명령줄에 대한 기본적인 지식이 있으면 도움이 되지만 필수는 아닙니다.
 
-We recommend the following introductory materials:
+다음 입문 자료를 권장합니다:
 
-- **Python**: Software Carpentry workshop on ["Plotting and Programming in Python"](http://swcarpentry.github.io/python-novice-gapminder/)
-- **Python**: [Codecademy Python3 course](https://www.codecademy.com/learn/learn-python-3) (free with trial).
-- **Command line**: [Codecademy command line course](https://www.codecademy.com/learn/learn-the-command-line) (free with trial).
-- **Jupyter notebooks**: [Coderefinery Jupyter workshop](https://coderefinery.github.io/jupyter/).
+- **Python**: ["Python에서의 플로팅 및 프로그래밍"](http://swcarpentry.github.io/python-novice-gapminder/)에 대한 소프트웨어 카펜트리 워크숍
+- **Python**: [Codecademy Python3 과정](https.www.codecademy.com/learn/learn-python-3) (체험판으로 무료).
+- **명령줄**: [Codecademy 명령줄 과정](https://www.codecademy.com/learn/learn-the-command-line) (체험판으로 무료).
+- **Jupyter 노트북**: [Coderefinery Jupyter 워크숍](https://coderefinery.github.io/jupyter/).
 
-## Recommended reading
+## 추천 자료
 
-## [Analysis of single cell RNA seq data](https://scrnaseq-course.cog.sanger.ac.uk/website/index.html)
+## [단일 세포 RNA seq 데이터 분석](https://scrnaseq-course.cog.sanger.ac.uk/website/index.html)
 
-The original source of much of the course content; as a 2-day course, it includes a broader overview of analytical methods and a guide to generating the expression matrix from raw data. While its examples are implemented in R, the conceptual underpinnings are broadly applicable.
+많은 강의 내용의 원본 출처; 2일 과정으로서, 분석 방법에 대한 더 넓은 개요와 원시 데이터에서 발현 행렬을 생성하는 가이드를 포함합니다. 예제는 R로 구현되었지만 개념적 토대는 광범위하게 적용 가능합니다.
 
-## [Current best practices in single‐cell RNA‐seq analysis: a tutorial](https://www.embopress.org/doi/full/10.15252/msb.20188746)
+## [단일 세포 RNA-seq 분석의 현재 모범 사례: 튜토리얼](https://www.embopress.org/doi/full/10.15252/msb.20188746)
 
-Clear explanations of many of the methodological tradeoffs and our current understanding of best practices. Includes an in-depth tutorial, implemented primarily in Python.
+많은 방법론적 절충안과 모범 사례에 대한 현재의 이해에 대한 명확한 설명. 주로 Python으로 구현된 심층 튜토리얼을 포함합니다.
 
-## Development, reuse and contributing
+## 개발, 재사용 및 기여
 
-### Content
+### 내용
 
-This course was [originally developed by the Hemberg Lab](https://scrnaseq-course.cog.sanger.ac.uk/website/index.html), and has been abbreviated and adapted for Python (with permission) by [Sidney Bell](https://twitter.com/sidneymbell) and the Computational Biology team at the Chan Zuckerberg Initiative.  
-We gratefully acknowledge the work of the original authors of the course material: Vladimir Kiselev, Tallulah Andrews, Jennifer Westoby, Davis McCarthy, Maren Büttner, Jimmy Lee, Krzysztof Polanski, Sebastian Y. Müller, Elo Madissoon, Stephane Ballereau, Maria Do Nascimento Lopes Primo, Rocio Martinez Nunez and Martin Hemberg.
+이 과정은 [원래 Hemberg Lab에서 개발](https://scrnaseq-course.cog.sanger.ac.uk/website/index.html)했으며, [Sidney Bell](https://twitter.com/sidneymbell)과 Chan Zuckerberg Initiative의 전산 생물학 팀이 (허가를 받아) Python에 맞게 축약하고 수정했습니다.
+우리는 원본 강의 자료의 저자인 Vladimir Kiselev, Tallulah Andrews, Jennifer Westoby, Davis McCarthy, Maren Büttner, Jimmy Lee, Krzysztof Polanski, Sebastian Y. Müller, Elo Madissoon, Stephane Ballereau, Maria Do Nascimento Lopes Primo, Rocio Martinez Nunez, Martin Hemberg의 노고에 깊이 감사합니다.
 
-We have also incorporated practices and framing put forth in [Luecken and Theis, 2019](https://www.embopress.org/doi/full/10.15252/msb.20188746), and thank them for their work.
+또한 [Luecken and Theis, 2019](https://www.embopress.org/doi/full/10.15252/msb.20188746)에서 제시한 관행과 구성을 통합했으며, 그들의 노고에 감사드립니다.
 
-This curriculum was originally taught during one day of a CZI-sponsored workshop in Chicago, IL on October 18, 2019.
+이 커리큘럼은 2019년 10월 18일 일리노이주 시카고에서 열린 CZI 후원 워크숍의 하루 동안 처음으로 강의되었습니다.
 
-### Contributing
+### 기여
 
-We warmly welcome and encourage members of the scientific community to submit updates and improvements through [github](https://github.com/chanzuckerberg/scRNA-python-workshop).
+우리는 과학계 구성원들이 [github](https://github.com/chanzuckerberg/scRNA-python-workshop)를 통해 업데이트와 개선 사항을 제출하는 것을 따뜻하게 환영하고 권장합니다.
 
-We adhere to the license of the original materials:
+우리는 원본 자료의 라이선스를 준수합니다:
 
-> All of the course material is licensed under GPL-3. Anyone is welcome to go through the material in order to learn about analysis of scRNA-seq data. If you plan to use the material for your own teaching, we would appreciate if you tell the Hemberg lab about it in addition to providing a suitable citation to the original materials.
+> 모든 강의 자료는 GPL-3에 따라 라이선스가 부여됩니다. 누구나 scRNA-seq 데이터 분석에 대해 배우기 위해 자료를 살펴볼 수 있습니다. 자신의 교육에 자료를 사용할 계획이라면, 원본 자료에 대한 적절한 인용을 제공하는 것 외에 Hemberg 연구실에 알려주시면 감사하겠습니다.
 
-### Contact
+### 연락처
 
-For conceptual questions about the original source material, please contact [Vladimir Kisilev](vladimir.yu.kiselev@gmail.com).  
-For questions about the Python adaptation, please contact [Sidney Bell](twitter.com/sidneymbell).
+원본 자료의 개념적 질문에 대해서는 [Vladimir Kisilev](vladimir.yu.kiselev@gmail.com)에게 문의하십시오.
+Python 적용에 대한 질문은 [Sidney Bell](twitter.com/sidneymbell)에게 문의하십시오.
