@@ -10,34 +10,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3 
+    - uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.11'
 
-    - name: Install Jupyter Book
+    - name: Install dependencies
       run: |
-        pip install jupyter-book==0.6.2
+        pip install -U jupyter-book
 
-    - name: Build Markdown
+    - name: Build the book
       run: |
-        jupyter-book build ./
+        jupyter-book build .
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0'
-        bundler-cache: true
-
-    - name: Build Site
-      run: |
-        bundle exec jekyll build
-        touch _site/.nojekyll
-
-    - name: Deploy
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
+        publish_dir: ./_build/html
