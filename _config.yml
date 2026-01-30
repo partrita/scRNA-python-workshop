@@ -4,7 +4,9 @@
 title: Analysis of single cell RNA-seq data
 author: Vladimir Kiselev & the Hemberg lab; adapted by Sidney Bell
 copyright: "2024"
-logo: ""
+
+# Only build files that are in the table of contents
+only_build_toc_files: true
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

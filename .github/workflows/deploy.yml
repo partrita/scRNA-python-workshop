@@ -24,6 +24,7 @@ jobs:
     - name: Build the book
       run: |
         jupyter-book build .
+        mkdir -p _build/html
         touch _build/html/.nojekyll
 
     - name: Deploy to GitHub Pages
