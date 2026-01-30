@@ -2,40 +2,40 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro/about
+root: content/intro/about
 title: Analysis of single cell RNA-seq data
 
 parts:
   - caption: Introduction
     chapters:
-    - file: intro/about
+    - file: content/intro/about
       title: About the course
-    - file: intro/setup
+    - file: content/intro/setup
       title: Setup and installation
-    - file: intro/overview
+    - file: content/intro/overview
       title: Workflow overview
 
   - caption: Data preprocessing
     chapters:
-    - file: preprocessing/00-tabula-muris
+    - file: content/preprocessing/00-tabula-muris
       title: Tabula muris
-    - file: preprocessing/01-basic-qc
+    - file: content/preprocessing/01-basic-qc
       title: Quality control
-    - file: preprocessing/02-normalization
+    - file: content/preprocessing/02-normalization
       title: Normalization and PCA
 
   - caption: Data analysis
     chapters:
-    - file: analysis/03-dimensionality-reduction
+    - file: content/analysis/03-dimensionality-reduction
       title: Dimensionality reduction
-    - file: analysis/04-clustering
+    - file: content/analysis/04-clustering
       title: Clustering
-    - file: analysis/05-diffexp
+    - file: content/analysis/05-diffexp
       title: Differential expression
 
   - caption: Exploratory analysis & advanced exercises
     chapters:
-    - file: exploration/06-exploratory
+    - file: content/exploration/06-exploratory
       title: Exploration with cellxgene
-    - file: exploration/07-exercise
+    - file: content/exploration/07-exercise
       title: Advanced exercises
