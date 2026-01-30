@@ -24,7 +24,7 @@ jobs:
     - name: Build the book
       run: |
         jupyter-book build .
-        cp .nojekyll _build/html/
+        touch _build/html/.nojekyll
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
