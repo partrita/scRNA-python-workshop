@@ -8,8 +8,6 @@ title: Analysis of single cell RNA-seq data
 parts:
   - caption: Introduction
     chapters:
-    - file: content/intro/about
-      title: About the course
     - file: content/intro/setup
       title: Setup and installation
     - file: content/intro/overview

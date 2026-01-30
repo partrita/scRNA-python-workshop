@@ -83,4 +83,5 @@ sphinx:
   local_extensions: {}  # A dict of extensions that are local to this book
   recursive_update: false # A boolean indicating whether to overwrite the Sphinx config (true) or recursively update (false)
   config:
-    exclude_patterns: ['_build', '.git', '.github', 'scripts', 'assets', 'README.md', 'MIGRATION.md', 'TROUBLESHOOTING.md']  # key-value pairs to directly over-ride the Sphinx configuration
+    exclude_patterns: ['_build', '.git', '.github', 'scripts', 'assets', 'README.md', 'MIGRATION.md', 'TROUBLESHOOTING.md']
+    bibtex_bibfiles: []  # key-value pairs to directly over-ride the Sphinx configuration
