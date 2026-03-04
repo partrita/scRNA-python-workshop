@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>단일 세포 RNA-seq 소개 &#8212; Analysis of single cell RNA-seq data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/intro/overview';</script>
+    <link rel="canonical" href="https://www.chanzuckerberg.github.io/scRNA-python-workshop/content/intro/overview.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tabula Muris" href="../preprocessing/00-tabula-muris.html" />
+    <link rel="prev" title="설정" href="setup.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="about.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Analysis of single cell RNA-seq data</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="about.html">
+                    이 과정에 대하여
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup and installation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Workflow overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing/00-tabula-muris.html">Tabula muris</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing/01-basic-qc.html">소개</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing/02-normalization.html">Normalization and PCA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../analysis/03-dimensionality-reduction.html">Dimensionality reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis/04-clustering.html">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis/05-diffexp.html">Differential expression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exploratory analysis &amp; advanced exercises</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exploration/06-exploratory.html">Exploration with cellxgene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exploration/07-exercise.html">소개</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/chanzuckerberg/scRNA-python-workshop" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/chanzuckerberg/scRNA-python-workshop/issues/new?title=Issue%20on%20page%20%2Fcontent/intro/overview.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/intro/overview.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>단일 세포 RNA-seq 소개</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">벌크 RNA-seq</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrna-seq">scRNA-seq</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">워크플로우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">계산 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">과제</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rna-seq">
+<h1>단일 세포 RNA-seq 소개<a class="headerlink" href="#rna-seq" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>벌크 RNA-seq<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>00년대 후반에 마이크로어레이를 대체하는 주요 혁신이었으며 이후 널리 사용되었습니다.</p></li>
+<li><p>대규모 세포 집단에서 각 유전자의 <strong>평균 발현 수준</strong>을 측정합니다.</p></li>
+<li><p>비교 전사체학(예: 다른 종의 동일한 조직 샘플)에 유용합니다.</p></li>
+<li><p>앙상블의 발현 특징을 정량화하는 데 유용합니다(예: 질병 연구).</p></li>
+<li><p>이질적인 시스템(예: 초기 발생 연구, 복잡한 조직(뇌))을 연구하기에는 <strong>불충분</strong>합니다.</p></li>
+<li><p>유전자 발현의 확률적 특성에 대한 통찰력을 제공하지 <strong>않습니다</strong>.</p></li>
+</ul>
+</section>
+<section id="scrna-seq">
+<h2>scRNA-seq<a class="headerlink" href="#scrna-seq" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>2009년 Tang 등이 처음 발표한 <strong>새로운</strong> 기술입니다.</p></li>
+<li><p>새로운 프로토콜과 낮은 시퀀싱 비용으로 더 접근하기 쉬워진 <a class="reference external" href="https://www.ohio.edu/bioinformatics/upload/Single-Cell-RNA-seq-Method-of-the-Year-2013.pdf">~2014년</a>까지 널리 인기를 얻지 못했습니다.</p></li>
+<li><p>세포 집단에서 각 유전자의 <strong>발현 수준 분포</strong>를 측정합니다.</p></li>
+<li><p><strong>세포 특이적 전사체 변화가 중요한</strong> 새로운 생물학적 질문을 연구할 수 있게 해줍니다(예: 세포 유형 식별, 세포 반응의 이질성, 유전자 발현의 확률성, 세포 간 유전자 조절 네트워크 추론).</p></li>
+<li><p>데이터 세트는 <strong><span class="math notranslate nohighlight">\(10^2\)</span>에서 <span class="math notranslate nohighlight">\(10^6\)</span>개 세포</strong>까지 다양하며 매년 크기가 증가합니다.</p></li>
+<li><p>현재 SMART-seq2(Picelli, 2013), CELL-seq(Hashimshony, 2012), Drop-seq(Macosko, 2015) 등 여러 가지 다른 프로토콜이 사용되고 있습니다.</p></li>
+<li><p><a class="reference external" href="https://www.fluidigm.com/products/c1-system">Fluidigm C1</a>, <a class="reference external" href="https://www.wafergen.com/products/icell8-single-cell-system">Wafergen ICELL8</a>, <a class="reference external" href="https://www.10xgenomics.com/single-cell/">10X Genomics Chromium</a>을 포함한 상용 플랫폼도 사용할 수 있습니다.</p></li>
+<li><p>벌크 RNA-seq의 여러 계산 분석 방법을 사용할 <strong>수</strong> 있습니다.</p></li>
+<li><p><strong>대부분의 경우</strong> 계산 분석에는 기존 방법의 수정 또는 새로운 방법의 개발이 필요합니다.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>워크플로우<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p><img alt="scRNAseq 워크플로우" src="../../_images/RNA-Seq_workflow-5.pdf.jpg" /></p>
+<p>전반적으로 실험적인 scRNA-seq 프로토콜은 벌크 RNA-seq에 사용되는 방법과 유사합니다. 다음 장에서 가장 일반적인 접근 방식 중 일부를 논의할 것입니다.</p>
+</section>
+<section id="id3">
+<h2>계산 분석<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>이 과정은 scRNA-seq 실험에서 얻은 데이터의 계산 분석에 관한 것입니다. 첫 번째 단계(노란색)는 모든 고처리량 시퀀싱 데이터에 공통적입니다. 이후 단계(주황색)는 scRNASeq의 기술적 차이를 해결하기 위해 기존 RNASeq 분석 방법과 새로운 방법을 혼합해야 합니다. 마지막으로 생물학적 해석(파란색)은 scRNASeq를 위해 특별히 개발된 방법으로 분석해야 <strong>합니다</strong>.</p>
+<img alt="분석 워크플로우" src="../../_images/flowchart.png" />
+<p><a class="reference external" href="https://www.embopress.org/doi/full/10.15252/msb.20188746">Luecken and Theis</a>의 최근 scRNA-seq 분석 리뷰를 권장합니다.</p>
+<p>오늘날에는 위 순서도의 하나 이상의 단계를 수행할 수 있는 여러 가지 다른 플랫폼도 있습니다. 가장 인기 있는 플랫폼은 다음과 같습니다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://satijalab.org/seurat/">Seurat</a>는 단일 세포 RNA-seq 데이터의 QC, 분석 및 탐색을 위해 설계된 R 패키지입니다.</p></li>
+<li><p><a class="reference external" href="https://master.bioconductor.org/packages/release/workflows/html/simpleSingleCell.html">Bioconductor</a>는 단일 세포 데이터 분석용 패키지를 포함하여 고처리량 유전체학 데이터 분석을 위한 오픈 소스, 공개 개발 R 프로젝트입니다.</p></li>
+<li><p><a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>는 Seurat와 유사한 Python 패키지입니다.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>과제<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>벌크와 단일 세포 RNA-seq의 주요 차이점은 각 시퀀싱 라이브러리가 세포 집단이 아닌 단일 세포를 나타낸다는 것입니다. 따라서 다른 세포(시퀀싱 라이브러리)의 결과 비교에 상당한 주의를 기울여야 합니다. 라이브러리 간 불일치의 주요 원인은 다음과 같습니다.</p>
+<ul class="simple">
+<li><p><strong>증폭</strong>(최대 100만 배)</p></li>
+<li><p>한 세포에서는 중간 정도의 발현 수준으로 관찰되지만 다른 세포에서는 감지되지 않는 유전자 ‘드롭아웃’(Kharchenko, 2014).</p></li>
+</ul>
+<p>두 경우 모두 RNA가 단일 세포에서만 유래하므로 전사체의 시작 양이 적기 때문에 불일치가 발생합니다. 전사체 포획 효율성을 개선하고 증폭 편향을 줄이는 것은 현재 활발한 연구 분야입니다. 그러나 이 과정에서 보게 되겠지만 적절한 정규화 및 수정을 통해 이러한 문제 중 일부를 완화할 수 있습니다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/intro"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="setup.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">설정</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../preprocessing/00-tabula-muris.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tabula Muris</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">벌크 RNA-seq</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrna-seq">scRNA-seq</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">워크플로우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">계산 분석</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">과제</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vladimir Kiselev & the Hemberg lab; adapted by Sidney Bell
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="https://github.com/chanzuckerberg/scRNA-python-workshop">View source repository</a>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
