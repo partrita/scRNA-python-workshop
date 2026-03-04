@@ -1,6 +1,4 @@
-# 단일 세포 RNA-seq 데이터 분석 (Python)
-
-# [여기에서 강의 내용을 확인하세요](https://chanzuckerberg.github.io/scRNA-python-workshop/)
+# 단일 세포 RNA-seq 데이터 분석(Python)
 
 ## 강의 목표
 
@@ -30,16 +28,16 @@
 
 ## 전제 조건 및 자료
 
-워크숍은 설명적인 토론과 실습이 번갈아 가며 진행됩니다. **완전히 참여하려면 모든 필수 패키지가 설치된 노트북을 가져오시는 것을 강력히 권장합니다.** [여기](https://chanzuckerberg.github.io/scRNA-python-workshop/intro/setup.html)의 지침을 따르십시오.
+워크숍은 설명적인 토론과 실습이 번갈아 가며 진행됩니다. 완전히 참여하려면 모든 필수 패키지가 설치된 노트북을 가져오시는 것을 강력히 권장합니다. [여기](https://chanzuckerberg.github.io/scRNA-python-workshop/intro/setup.html)의 지침을 따르십시오.
 
 이 과정은 Python에 대한 기본적인 지식이 있는 분들을 대상으로 합니다(예: 소프트웨어 카펜트리 워크숍에서 다루는 수준). Jupyter 노트북과 명령줄에 대한 기본적인 지식이 있으면 도움이 되지만 필수는 아닙니다.
 
 다음 입문 자료를 권장합니다:
 
-- **Python**: ["Python에서의 플로팅 및 프로그래밍"](http://swcarpentry.github.io/python-novice-gapminder/)에 대한 소프트웨어 카펜트리 워크숍
-- **Python**: [Codecademy Python3 과정](https.www.codecademy.com/learn/learn-python-3) (체험판으로 무료).
-- **명령줄**: [Codecademy 명령줄 과정](https://www.codecademy.com/learn/learn-the-command-line) (체험판으로 무료).
-- **Jupyter 노트북**: [Coderefinery Jupyter 워크숍](https://coderefinery.github.io/jupyter/).
+- Python: ["Python에서의 플로팅 및 프로그래밍"](http://swcarpentry.github.io/python-novice-gapminder/)에 대한 소프트웨어 카펜트리 워크숍
+- Python: [Codecademy Python3 과정](https.www.codecademy.com/learn/learn-python-3) (체험판으로 무료).
+- 명령줄: [Codecademy 명령줄 과정](https://www.codecademy.com/learn/learn-the-command-line) (체험판으로 무료).
+- Jupyter 노트북: [Coderefinery Jupyter 워크숍](https://coderefinery.github.io/jupyter/).
 
 ## 추천 자료
 
@@ -50,6 +48,17 @@
 ## [단일 세포 RNA-seq 분석의 현재 모범 사례: 튜토리얼](https://www.embopress.org/doi/full/10.15252/msb.20188746)
 
 많은 방법론적 절충안과 모범 사례에 대한 현재의 이해에 대한 명확한 설명. 주로 Python으로 구현된 심층 튜토리얼을 포함합니다.
+
+## 로컬 개발
+
+이 책을 로컬에서 빌드하려면 다음 명령어를 사용하십시오:
+
+```bash
+# 가상 환경의 jupyter-book을 사용하여 빌드
+.venv/bin/jupyter-book build .
+```
+
+빌드가 완료되면 `_build/html/index.html` 파일을 브라우저에서 열어 결과를 확인할 수 있습니다.
 
 ## 개발, 재사용 및 기여
 
@@ -72,5 +81,5 @@
 
 ### 연락처
 
-원본 자료의 개념적 질문에 대해서는 [Vladimir Kisilev](vladimir.yu.kiselev@gmail.com)에게 문의하십시오.
-Python 적용에 대한 질문은 [Sidney Bell](twitter.com/sidneymbell)에게 문의하십시오.
+원본 자료의 개념적 질문에 대해서는 [Vladimir Kisilev](mailto:vladimir.yu.kiselev@gmail.com)에게 문의하십시오.
+Python 적용에 대한 질문은 [Sidney Bell](https://twitter.com/sidneymbell)에게 문의하십시오.
